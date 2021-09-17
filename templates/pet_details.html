@@ -5,10 +5,10 @@
 
 <ul>
     {% if pet.photo_url %}
-    <li>{{ pet.photo_url }}</li>
+    <img src="{{ pet.photo_url }}" alt="Pet Photo">
     {% endif %}
-    <li>{{ pet.age }}</li>
-    <li>{{ pet.species }}</li>
+    <li>Age: {{ pet.age }}</li>
+    <li>Species: {{ pet.species }}</li>
 </ul>
 
 <div>

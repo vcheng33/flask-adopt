@@ -4,10 +4,14 @@
 <h1>Rithm's Pet Adoption Agency</h1>
 {% for pet in pets %}
 <ul>
-    <a href='{{ pet.id }}'><li>{{ pet.name }}</li></a>
-    <li>{{ pet.photo_url }}</li>
+    <a href='{{ pet.id }}'>
+        <h2>{{ pet.name }}</h2>
+    </a>
+    {% if pet.photo_url %}
+    <img src="{{ pet.photo_url }}" alt="Pet Photo">
+    {% endif %}
     {% if pet.available %}
-    <li><b>{{ pet.availble }}</b></li>
+    <li><b>Available</b></li>
     {% endif %}
 </ul>
 {% endfor %}
