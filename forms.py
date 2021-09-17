@@ -1,10 +1,10 @@
 """Forms for adopt app."""
 from flask_wtf import FlaskForm
-from wtforms import StringField, FloatField, SelectField
+from wtforms import StringField, BooleanField
 from wtforms.validators import InputRequired, Optional, URL, ValidationError
 
 
-class AddPet(FlaskForm):
+class AddPetForm(FlaskForm):
     """Adding Pet Form"""
     name = StringField('Pet Name', validators=[InputRequired()])
     species = StringField('Species', validators=[InputRequired()])
@@ -30,3 +30,13 @@ class AddPet(FlaskForm):
         if field.data.lower() not in valid_inputs:
             raise ValidationError(
                 'Species must be Baby, Young, Adult or Senior')
+
+# choices, any of are alternatives to the functions
+
+class EditPetForm(FlaskForm):
+    """Adding Pet Form"""
+    photo_url = StringField('Photo URL', validators=[Optional(), URL()])
+    age = StringField('Age', validators=[InputRequired()])
+    notes = StringField('Notes', validators=[Optional()])
+    available = BooleanField('Available?')
+

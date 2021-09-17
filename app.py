@@ -1,9 +1,11 @@
 """Flask app for adopt app."""
-
+# EXTERNAL IMPORTS
 import os
-from forms import AddPet
 from flask import Flask, request, render_template, session, flash, redirect
 from flask_debugtoolbar import DebugToolbarExtension
+
+# INTERNAL IMPORTS
+from forms import AddPetForm, EditPetForm
 from models import db, connect_db, Pet
 
 # API_SECRET_KEY = os.environ['API_SECRET_KEY']
@@ -62,25 +64,23 @@ def add_pet():
         db.session.commit()
 
         flash(f"Added {pet.name}!")
-        return redirect('/add')
+        return redirect('/')
     else:
         return render_template('add_pet_form.html', form=form)
 
 
 @app.route('/<int:id>', methods=['GET', 'POST'])
-def display_edit_pet_form(id):
+def edit_pet(id):
     """Show pet info with edit form; Handle edit"""
 
     pet = Pet.query.get_or_404(id)
-    form = AddPet(obj=pet)
+    form = EditPetForm(obj=pet)
 
     if form.validate_on_submit():
 
-        pet.name = form.name.data.title()
-        pet.species = form.species.data.title()
-        pet.photo_url = form.photo_url.data
         pet.age = form.age.data.title()
         pet.notes = form.notes.data
+        pet.available = form.notes.available
 
         db.session.commit()
         flash(f"{pet.name} information has been updated")
