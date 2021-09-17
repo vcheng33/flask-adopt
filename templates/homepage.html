@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Rithm's Pet Adoption Agency</h1>
+{% for pet in pets %}
+<ul>
+    <li>{{ pet.name }}</li>
+    <li>{{ pet.photo_url }}</li>
+    {% if pet.available %}
+    <li><b>{{ pet.availble }}</b></li>
+    {% endif %}
+</ul>
+{% endfor %}
+
+<a href="/add">Add Pet</a>
+
+{% endblock %}
