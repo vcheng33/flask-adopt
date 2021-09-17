@@ -41,13 +41,25 @@ def add_pet():
     form = AddPet()
 
     if form.validate_on_submit():
+
         name = form.name.data
         species = form.species.data
         photo_url = form.photo_url.data
         age = form.age.data
         notes = form.notes.data
 
-        flash(f"Added {name}!")
+        pet = Pet(
+            name=name,
+            species=species,
+            photo_url=photo_url,
+            age=age,
+            notes=notes
+        )
+
+        db.session.add(pet)
+        db.session.commit()
+
+        flash(f"Added {pet.name}!")
         return redirect('/add')
     else:
         return render_template('add_pet_form.html', form=form)
